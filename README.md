@@ -1,14 +1,42 @@
 # MiniCloud
 
-A mini Heroku/Railway-style deployment platform. Connect a GitHub repository to
-a project; a `git push` (via a GitHub webhook) triggers an asynchronous pipeline
-that clones the exact commit, installs dependencies, runs tests, builds the app,
-builds a Docker image, starts an isolated container, health-checks it, and marks
-the deployment **SUCCESS** or **ERROR** — with full per-stage logs, retries,
-timeouts, cleanup, rollback, and Prometheus metrics.
+> A mini Heroku/Railway-style deployment platform — push to GitHub, get a
+> running, health-checked Docker container.
+
+![Node](https://img.shields.io/badge/Node-20+-339933?logo=node.js&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-ESM-3178C6?logo=typescript&logoColor=white)
+![Express](https://img.shields.io/badge/Express-5-000000?logo=express&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-4169E1?logo=postgresql&logoColor=white)
+![Prisma](https://img.shields.io/badge/Prisma-7-2D3748?logo=prisma&logoColor=white)
+![Redis](https://img.shields.io/badge/Redis-7-DC382D?logo=redis&logoColor=white)
+![BullMQ](https://img.shields.io/badge/BullMQ-queue-E0234E)
+![Docker](https://img.shields.io/badge/Docker-engine-2496ED?logo=docker&logoColor=white)
+
+Connect a GitHub repository to a project; a `git push` (via a GitHub webhook)
+triggers an asynchronous pipeline that clones the exact commit, installs
+dependencies, runs tests, builds the app, builds a Docker image, starts an
+isolated container, health-checks it, and marks the deployment **SUCCESS** or
+**ERROR** — with full per-stage logs, retries, timeouts, cleanup, rollback, and
+Prometheus metrics.
+
+**🔗 Live demo:** https://app.3.110.222.63.sslip.io · login `demo@minicloud.local` / `password123`
+_(demo box — may be offline to save cost; see the video below.)_
+
+**📚 Deep dives:** [System Design](./SYSTEM_DESIGN.md) · [Deployment guide](./DEPLOY.md) · [Frontend](https://github.com/sidharth-rawat/minicloud-frontend)
+
+## Demo
+
+<!-- Record a ~60s clip (login → new deployment → DEPLOYING → green SUCCESS →
+     logs → live container) and drop it here. Drag-drop an .mp4/.gif into the
+     GitHub README editor, or commit docs/demo.gif and reference it: -->
+<!-- ![MiniCloud demo](docs/demo.gif) -->
+
+_Demo video coming soon._
+
+---
 
 This repo (`minicloud-backend`) is the API + worker. The dashboard lives in
-[`minicloud-frontend`](../minicloud-frontend).
+[`minicloud-frontend`](https://github.com/sidharth-rawat/minicloud-frontend).
 
 ---
 
