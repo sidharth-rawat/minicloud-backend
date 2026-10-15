@@ -21,12 +21,11 @@ _(demo box — may be offline to save cost.)_
 
 **📚 Deep dives:** [System Design](./SYSTEM_DESIGN.md) · [Deployment guide](./DEPLOY.md) · [Frontend](https://github.com/sidharth-rawat/minicloud-frontend)
 
-## Demo
-
-<!-- Record a ~60s clip (login → new deployment → DEPLOYING → green → logs) and
-     drop it here, or commit docs/demo.gif and reference it: -->
-<!-- ![MiniCloud demo](docs/demo.gif) -->
-_Demo video coming soon._
+<!-- ## Demo
+Record a ~60s clip (login → new deployment → DEPLOYING → green → logs), then
+commit docs/demo.gif and uncomment this section:
+![MiniCloud demo](docs/demo.gif)
+-->
 
 ## Architecture
 
