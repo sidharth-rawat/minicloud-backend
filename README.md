@@ -16,8 +16,8 @@ asynchronous pipeline — clone the exact commit → install → test → build 
 Docker image → isolated container → health check → **SUCCESS/ERROR** — with
 per-stage logs, retries, timeouts, cleanup, rollback, and Prometheus metrics.
 
-**🔗 Live demo:** https://app.3.110.222.63.sslip.io · login `demo@minicloud.local` / `password123`
-_(demo box — may be offline to save cost.)_
+**🚀 Fully deployable** on a single Ubuntu server with one command — see
+[DEPLOY.md](./DEPLOY.md) (free HTTPS, no domain needed). See the demo clip below.
 
 **📚 Deep dives:** [System Design](./SYSTEM_DESIGN.md) · [Deployment guide](./DEPLOY.md) · [Frontend](https://github.com/sidharth-rawat/minicloud-frontend)
 
