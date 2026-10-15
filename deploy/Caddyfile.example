@@ -1,0 +1,21 @@
+# MiniCloud reverse proxy with automatic HTTPS (Let's Encrypt).
+#
+# Replace <IP> below with your EC2 public IP, with dots kept, e.g. 13.233.1.50.
+# sslip.io turns "api.13.233.1.50.sslip.io" into a real DNS name that resolves
+# to that IP — so Caddy can get a trusted TLS cert for it, no domain needed.
+#
+# Requires inbound ports 80 and 443 open in the EC2 security group.
+# Install path: /etc/caddy/Caddyfile   (then: sudo systemctl reload caddy)
+
+# ── Backend API (Express + worker) ──────────────────────────────────────────
+api.<IP>.sslip.io {
+	reverse_proxy 127.0.0.1:4000
+}
+
+# ── Frontend dashboard (static Vite build) ──────────────────────────────────
+app.<IP>.sslip.io {
+	root * /var/www/minicloud
+	encode gzip
+	try_files {path} /index.html
+	file_server
+}

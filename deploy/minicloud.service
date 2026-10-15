@@ -1,0 +1,26 @@
+# systemd unit for the MiniCloud backend (API + BullMQ worker, one process).
+# Install: sudo cp deploy/minicloud.service /etc/systemd/system/
+#          sudo systemctl daemon-reload && sudo systemctl enable --now minicloud
+# Logs:    journalctl -u minicloud -f
+#
+# Adjust User and WorkingDirectory if you cloned somewhere other than
+# /home/ubuntu/minicloud/minicloud-backend.
+
+[Unit]
+Description=MiniCloud backend (API + deployment worker)
+After=network.target docker.service
+Requires=docker.service
+
+[Service]
+Type=simple
+User=ubuntu
+WorkingDirectory=/home/ubuntu/minicloud/minicloud-backend
+EnvironmentFile=/home/ubuntu/minicloud/minicloud-backend/.env
+ExecStart=/usr/bin/node dist/server.js
+Restart=always
+RestartSec=3
+# The worker shells out to docker/git, so keep PATH sane for non-login service.
+Environment=PATH=/usr/local/bin:/usr/bin:/bin
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,13 @@
+{
+  "name": "minicloud-sample-app",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Tiny deployable app to verify the MiniCloud deployment pipeline",
+  "main": "server.js",
+  "scripts": {
+    "test": "node test.js",
+    "build": "node -e \"console.log('build step: nothing to compile')\"",
+    "start": "node server.js"
+  },
+  "license": "MIT"
+}

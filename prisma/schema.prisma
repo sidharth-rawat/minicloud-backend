@@ -1,0 +1,80 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum DeploymentStatus {
+  SUCCESS
+  ERROR
+  DEPLOYING
+  IDLE
+}
+
+enum LogLevel {
+  INFO
+  WARNING
+  ERROR
+}
+model User {
+  id           Int       @id @default(autoincrement())
+  firstName    String
+  lastName     String
+  email        String    @unique
+  phone        String?   @unique
+  passwordHash String
+  createdAt    DateTime  @default(now())
+  projects     Project[]
+}
+
+model Project {
+  id          Int          @id @default(autoincrement())
+  name        String
+  description String?
+  userId      Int
+  user        User         @relation(fields: [userId], references: [id])
+ repositoryUrl String? @unique
+  deployments  Deployment[]
+  createdAt   DateTime     @default(now())
+
+  // Dashboard lists projects by owner.
+  @@index([userId])
+}
+
+model Deployment {
+  id         Int     @id @default(autoincrement())
+  projectId  Int
+  project  Project @relation(fields: [projectId], references: [id])
+  branch     String
+  commitHash String
+  status  DeploymentStatus @default(IDLE)
+  startedAt DateTime  @default(now())
+  finishedAt DateTime?
+  errorMessage String?
+  createdAt   DateTime     @default(now())
+  deploymentLogs   DeploymentLog[]
+
+  // Deployment history is always queried per project, newest first.
+  @@index([projectId])
+}
+
+
+model DeploymentLog {
+  id Int @id @default(autoincrement())
+  status LogLevel @default(INFO)
+  deploymentId Int
+  deployment Deployment @relation(fields: [deploymentId], references: [id])
+  message String
+ createdAt   DateTime     @default(now())
+
+  // Logs are always fetched for a single deployment, in order.
+  @@index([deploymentId])
+}
