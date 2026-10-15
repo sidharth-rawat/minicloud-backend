@@ -41,31 +41,7 @@ Kubernetes, no multi-region. Single-node by design.
 
 ## 2. High-level architecture
 
-```
-                        ┌─────────────┐
-                        │   GitHub    │  git push
-                        └──────┬──────┘
-                               │ webhook (HMAC-signed)
-                               ▼
-┌──────────────────────────────────────────────────────────────────────┐
-│                   minicloud-backend (one Node process)                 │
-│                                                                        │
-│   Express API ───────────────┬──────────────────────┐                 │
-│   (auth, projects,           │ write                 │ enqueue         │
-│    deployments, webhook,     ▼                        ▼                 │
-│    /health, /metrics)   ┌──────────┐          ┌──────────────┐         │
-│                         │PostgreSQL│          │ Redis + BullMQ│        │
-│                         │ (Prisma) │          │ attempts=3,   │        │
-│                         └────▲─────┘          │ backoff, conc.│        │
-│                              │ status/logs    └──────┬───────┘         │
-│                              │                       │ consume         │
-│   BullMQ Worker (same process) ◄──────────────────────┘               │
-│        │ shells out via execFile (no shell)                            │
-└────────┼───────────────────────────────────────────────────────────────┘
-         ▼
-   host git + docker ──► deployed container (127.0.0.1:<random> → :3000)
-                                   │ GET /health → 200 → SUCCESS
-```
+![MiniCloud architecture](./docs/architecture.png)
 
 **Two repositories, no microservices:**
 
